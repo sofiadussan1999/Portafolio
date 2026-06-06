@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sofía Dussán Díaz | Data & AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07070f;
+      --bg2:      #0f0f1a;
+      --bg3:      #16162a;
+      --card:     #1a1a2e;
+      --border:   rgba(124,58,237,0.18);
+      --violet:   #7c3aed;
+      --violet2:  #a855f7;
+      --cyan:     #06b6d4;
+      --cyan2:    #22d3ee;
+      --text:     #e2e8f0;
+      --muted:    #94a3b8;
+      --dim:      #64748b;
+      --r:        12px;
+      --r2:       20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── GLOW ORBS ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(124,58,237,0.12); top: -200px; right: -200px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(6,182,212,0.08); bottom: 10%; left: -150px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 4rem;
+      background: rgba(7,7,15,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--violet2), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 4rem 4rem;
+      gap: 4rem;
+      z-index: 1;
+    }
+    .hero-content { flex: 1; max-width: 640px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 100px;
+      padding: .35rem 1rem;
+      font-size: .8rem;
+      color: var(--violet2);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .pulse {
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(1.4); }
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: .5rem;
+    }
+    .hero-name span {
+      background: linear-gradient(135deg, var(--violet2) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+    .hero-desc {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.75rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--violet), var(--violet2));
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(124,58,237,0.35);
+    }
+    .btn-primary:hover { box-shadow: 0 12px 40px rgba(124,58,237,0.5); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover { border-color: rgba(124,58,237,0.5); }
+
+    .hero-photo {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .hero-photo::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      border-radius: 50%;
+      z-index: -1;
+    }
+    .hero-photo img {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 4px solid var(--bg);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+    }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .stat-num span { color: var(--violet2); }
+    .stat-label { font-size: .75rem; color: var(--dim); text-transform: uppercase; letter-spacing: .05em; }
+
+    /* ── SECTION COMMON ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 4rem;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--violet2);
+      font-weight: 600;
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .section-line {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--cyan));
+      border-radius: 2px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+      font-size: .97rem;
+    }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .info-list li {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .info-list li strong { color: var(--text); min-width: 80px; }
+    .info-icon { color: var(--violet2); font-size: 1rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 1.75rem;
+      transition: border-color .3s, transform .2s;
+    }
+    .skill-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-3px); }
+    .skill-card-icon {
+      font-size: 2rem;
+      margin-bottom: .75rem;
+    }
+    .skill-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
+    .tag {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      color: var(--violet2);
+      font-size: .75rem;
+      padding: .25rem .65rem;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+    .tag.cyan {
+      background: rgba(6,182,212,0.1);
+      border-color: rgba(6,182,212,0.2);
+      color: var(--cyan2);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg2); }
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--violet), var(--cyan), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 3rem; }
+    .timeline-dot {
+      position: absolute;
+      left: -2.9rem;
+      top: 6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      border: 2px solid var(--bg2);
+      box-shadow: 0 0 12px rgba(124,58,237,0.5);
+    }
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 1.75rem 2rem;
+      transition: border-color .3s;
+    }
+    .timeline-card:hover { border-color: rgba(124,58,237,0.4); }
+    .timeline-date {
+      font-size: .78rem;
+      color: var(--violet2);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .4rem;
+    }
+    .timeline-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .2rem;
+    }
+    .timeline-company {
+      color: var(--cyan2);
+      font-size: .9rem;
+      font-weight: 500;
+      margin-bottom: .75rem;
+    }
+    .timeline-desc {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.8;
+    }
+    .timeline-desc li { margin-left: 1.2rem; margin-bottom: .3rem; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      overflow: hidden;
+      transition: border-color .3s, transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(124,58,237,0.15);
+    }
+    .project-img {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+    .project-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .project-card:hover .project-img img { transform: scale(1.05); }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,7,15,0.85) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-body { padding: 1.5rem; }
+    .project-type {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--cyan2);
+      font-weight: 600;
+      margin-bottom: .4rem;
+    }
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .project-desc {
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg2); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 1.75rem;
+      transition: border-color .3s, transform .2s;
+    }
+    .edu-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-3px); }
+    .edu-year {
+      font-size: .78rem;
+      color: var(--violet2);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .5rem;
+    }
+    .edu-degree {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .edu-school { color: var(--cyan2); font-size: .9rem; }
+
+    /* ── CERTS ── */
+    #certifications { background: var(--bg); }
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color .3s, transform .2s;
+    }
+    .cert-card:hover { border-color: rgba(124,58,237,0.4); transform: translateX(4px); }
+    .cert-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.2));
+      border: 1px solid rgba(124,58,237,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .cert-name { font-size: .9rem; font-weight: 500; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); }
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-line { margin: 0 auto 3rem; }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 1rem 1.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: .9rem;
+      font-weight: 500;
+      transition: border-color .3s, transform .2s, box-shadow .2s;
+    }
+    .contact-card:hover {
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(124,58,237,0.15);
+    }
+    .contact-card .icon { font-size: 1.3rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--dim);
+      font-size: .82rem;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      border-radius: var(--r);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: .7;
+      transition: opacity .2s;
+    }
+    #lightbox-close:hover { opacity: 1; }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { flex-direction: column-reverse; padding: 5rem 1.5rem 3rem; gap: 2.5rem; text-align: center; }
+      .hero-photo img { width: 220px; height: 220px; }
+      .hero-stats { justify-content: center; }
+      .hero-btns { justify-content: center; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .hero-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">SD</span>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#skills">Habilidades</a></li>
+    <li><a href="#experience">Experiencia</a></li>
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#education">Educación</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse"></span>
+      Disponible para nuevas oportunidades
+    </div>
+    <h1 class="hero-name">
+      Sofía<br><span>Dussán Díaz</span>
+    </h1>
+    <p class="hero-title">Data Engineer · AI Engineer · BI Developer</p>
+    <p class="hero-desc">
+      Ingeniera en Inteligencia Artificial e Ingeniería Electrónica con experiencia en automatización de software,
+      desarrollo de soluciones con Power Automate, Python y MATLAB. Combino BI, IA y automatización para crear
+      soluciones que mejoran la eficiencia y la toma de decisiones.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        Ver proyectos
+      </a>
+      <a href="#contact" class="btn btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v12H4z"/><path d="M4 4l8 8 8-8"/></svg>
+        Contactar
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div>
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">Proyectos completados</div>
+      </div>
+      <div>
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Certificaciones</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="1758038649704.jpg" alt="Sofía Dussán Díaz" />
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <span class="section-tag">Sobre mí</span>
+    <h2 class="section-title">Quién soy</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Soy Ingeniera en Inteligencia Artificial e Ingeniera Electrónica con experiencia en automatización de software,
+        desarrollo de soluciones con Power Automate y programación en Python y MATLAB. Mi enfoque profesional combina
+        la ingeniería, la inteligencia de negocios (BI) y la automatización para diseñar e implementar soluciones
+        innovadoras.
+      </p>
+      <p>
+        He trabajado en el desarrollo, mantenimiento e integraci&oacute;n de aplicaciones en MATLAB, así como en la
+        creación de flujos automatizados con Power Automate, garantizando interoperabilidad fluida entre sistemas y
+        procesos empresariales optimizados.
+      </p>
+      <p>
+        Cuento con experiencia docente en programación, robótica y electrónica, lo que me ha permitido fortalecer
+        habilidades de comunicación y formación tecnológica. Mi objetivo es aportar en proyectos que combinen
+        automatización, inteligencia artificial, análisis de datos y electrónica.
+      </p>
+    </div>
+    <div class="reveal">
+      <ul class="info-list">
+        <li>
+          <span class="info-icon">📍</span>
+          <strong>Ubicación</strong> Bogotá, Colombia
+        </li>
+        <li>
+          <span class="info-icon">📧</span>
+          <strong>Email</strong> sofiadussan1999@gmail.com
+        </li>
+        <li>
+          <span class="info-icon">🎓</span>
+          <strong>Título</strong> Ing. Electrónica · Esp. IA & Datos
+        </li>
+        <li>
+          <span class="info-icon">🌐</span>
+          <strong>Idiomas</strong> Español (nativo) · Inglés B2
+        </li>
+        <li>
+          <span class="info-icon">💡</span>
+          <strong>Enfoque</strong> Data · BI · AI · Automatización
+        </li>
+        <li>
+          <span class="info-icon">🔗</span>
+          <strong>LinkedIn</strong>
+          <a href="https://www.linkedin.com/in/sofiadussandiaz" target="_blank" style="color:var(--violet2);text-decoration:none;">sofiadussandiaz</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <span class="section-tag">Habilidades</span>
+    <h2 class="section-title">Stack tecnológico</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">📊</div>
+      <h3>Business Intelligence</h3>
+      <p style="color:var(--muted);font-size:.85rem;">Creación de dashboards interactivos y reportes ejecutivos con métricas clave.</p>
+      <div class="skill-tags">
+        <span class="tag">Power BI</span>
+        <span class="tag">DAX</span>
+        <span class="tag">Power Query</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🗄️</div>
+      <h3>Bases de Datos</h3>
+      <p style="color:var(--muted);font-size:.85rem;">Gestión, consulta y optimización de bases de datos relacionales.</p>
+      <div class="skill-tags">
+        <span class="tag">SQL Server</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">SSMS</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🐍</div>
+      <h3>Programación & Data Science</h3>
+      <p style="color:var(--muted);font-size:.85rem;">Análisis, modelado y procesamiento de datos con librerías especializadas.</p>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">MATLAB</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">⚡</div>
+      <h3>Automatización RPA</h3>
+      <p style="color:var(--muted);font-size:.85rem;">Diseño de flujos automatizados que conectan sistemas y reducen trabajo manual.</p>
+      <div class="skill-tags">
+        <span class="tag cyan">Power Automate</span>
+        <span class="tag cyan">Make</span>
+        <span class="tag cyan">n8n</span>
+        <span class="tag cyan">Power Platform</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🤖</div>
+      <h3>Inteligencia Artificial</h3>
+      <p style="color:var(--muted);font-size:.85rem;">Desarrollo e integración de soluciones con modelos de IA y LLMs.</p>
+      <div class="skill-tags">
+        <span class="tag cyan">AI Agents</span>
+        <span class="tag cyan">LLMs</span>
+        <span class="tag cyan">Feature Eng.</span>
+        <span class="tag cyan">ML</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🔌</div>
+      <h3>Ingeniería de Datos</h3>
+      <p style="color:var(--muted);font-size:.85rem;">Conexión a múltiples fuentes, ETL y pipelines de datos.</p>
+      <div class="skill-tags">
+        <span class="tag">ETL</span>
+        <span class="tag">APIs</span>
+        <span class="tag">SQL Server</span>
+        <span class="tag">KPIs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <span class="section-tag">Trayectoria</span>
+    <h2 class="section-title">Experiencia profesional</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">Sep 2025 – Nov 2025</div>
+        <div class="timeline-role">Monitora Bootcamps de Análisis de Datos e IA</div>
+        <div class="timeline-company">Talento Tech Bootcamps · Ministerio TIC Colombia</div>
+        <div class="timeline-desc">
+          Apoyo a programas de formación en Análisis de Datos e Inteligencia Artificial para el Ministerio TIC de Colombia.
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">Mar 2025 – Sep 2025 · 7 meses</div>
+        <div class="timeline-role">Ingeniera de IA e Inteligencia de Negocios</div>
+        <div class="timeline-company">INGELEC GROUP · Bogotá, Colombia</div>
+        <ul class="timeline-desc">
+          <li>Procesamiento, limpieza y análisis exploratorio de datos</li>
+          <li>Feature engineering con pandas, scikit-learn, TensorFlow y PyTorch</li>
+          <li>Integración con Power Automate y herramientas RPA</li>
+          <li>Conexión a vistas SQL Server y generación de dashboards con Power BI</li>
+          <li>Creación de visualizaciones interactivas y definición de KPIs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">Mar 2023 – Ago 2024 · 1 año 6 meses</div>
+        <div class="timeline-role">Desarrolladora de MATLAB – Pasante Ing. Electrónica</div>
+        <div class="timeline-company">Robotics 4.0 · Neiva, Huila, Colombia</div>
+        <ul class="timeline-desc">
+          <li>Análisis de planes de proyectos y especificaciones técnicas</li>
+          <li>Generación de solicitudes de información (RFI) usando MATLAB</li>
+          <li>Desarrollo y mantenimiento de aplicaciones en MATLAB</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-date">Feb 2020 – Nov 2023 · 3 años 10 meses</div>
+        <div class="timeline-role">Instructora de Programación en Robótica y Electrónica</div>
+        <div class="timeline-company">Tarratech · Bogotá, Colombia</div>
+        <ul class="timeline-desc">
+          <li>Formación en área STEM, Robótica, Electrónica y Matemáticas</li>
+          <li>Diseño y evaluación de pruebas de aprendizaje</li>
+          <li>Construcción de material para LMS (Plataforma Virtual Educativa)</li>
+          <li>Transferencia tecnológica y desarrollo de prototipos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <span class="section-tag">Portafolio</span>
+    <h2 class="section-title">Proyectos destacados</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal" onclick="openLightbox('Automatizacion make/Captura de pantalla 2026-06-04 174011.png')">
+      <div class="project-img">
+        <img src="Automatizacion make/Captura de pantalla 2026-06-04 174011.png" alt="Automatización Make – Telegram Bot" />
+        <div class="project-overlay">
+          <span style="color:#fff;font-size:.8rem;background:rgba(124,58,237,0.7);padding:.3rem .8rem;border-radius:100px;">🔍 Ver imagen</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Automatización · Make (Integromat)</div>
+        <div class="project-name">Bot de Telegram con IA</div>
+        <p class="project-desc">
+          Flujo automatizado en Make que conecta un Telegram Bot con la API de OpenAI para responder mensajes,
+          parsea la respuesta JSON y registra los resultados automáticamente en Google Sheets.
+        </p>
+        <div class="skill-tags">
+          <span class="tag cyan">Make</span>
+          <span class="tag cyan">Telegram Bot</span>
+          <span class="tag">OpenAI API</span>
+          <span class="tag">Google Sheets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="openLightbox('Ingelec transporte/Captura de pantalla 2025-05-22 173818.png')">
+      <div class="project-img">
+        <img src="Ingelec transporte/Captura de pantalla 2025-05-22 173818.png" alt="Dashboard Análisis de Alertas" />
+        <div class="project-overlay">
+          <span style="color:#fff;font-size:.8rem;background:rgba(124,58,237,0.7);padding:.3rem .8rem;border-radius:100px;">🔍 Ver imagen</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Dashboard · Power BI · INGELEC GROUP</div>
+        <div class="project-name">Análisis de Alertas – Flota Vehicular</div>
+        <p class="project-desc">
+          Dashboard interactivo para análisis de 2.557 alertas sobre 16 vehículos. Incluye distribución por vehículo,
+          mapa georreferenciado de Colombia, tendencias diarias y clasificación por tipo de alerta.
+        </p>
+        <div class="skill-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">KPIs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="openLightbox('Ingelec transporte/Captura de pantalla 2025-09-03 114918.png')">
+      <div class="project-img">
+        <img src="Ingelec transporte/Captura de pantalla 2025-09-03 114918.png" alt="Dashboard Análisis de Rendimiento" />
+        <div class="project-overlay">
+          <span style="color:#fff;font-size:.8rem;background:rgba(124,58,237,0.7);padding:.3rem .8rem;border-radius:100px;">🔍 Ver imagen</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Dashboard · Power BI · INGELEC GROUP</div>
+        <div class="project-name">Análisis de Rendimiento Vehicular</div>
+        <p class="project-desc">
+          Reporte de rendimiento de flota con métricas de 12.700+ km recorridos, 5.172 excesos de velocidad
+          y promedio diario de 604 km. Visualización por vehículo y evolución temporal.
+        </p>
+        <div class="skill-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">Power Query</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="openLightbox('Ingelec worldoffice/ingelecworldoffice.jpg')">
+      <div class="project-img">
+        <img src="Ingelec worldoffice/ingelecworldoffice.jpg" alt="Dashboard WorldOffice" />
+        <div class="project-overlay">
+          <span style="color:#fff;font-size:.8rem;background:rgba(124,58,237,0.7);padding:.3rem .8rem;border-radius:100px;">🔍 Ver imagen</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Dashboard · Power BI · INGELEC GROUP</div>
+        <div class="project-name">Seguridad Social e Incapacidades – WorldOffice</div>
+        <p class="project-desc">
+          Reporte ejecutivo de pagos de seguridad social e incapacidades por $1.926 millones. Evolución anual
+          2014–2024, distribución por concepto y detalle transaccional por empleado.
+        </p>
+        <div class="skill-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">RRHH Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" onclick="openLightbox('n8n/n8n.jpg')">
+      <div class="project-img">
+        <img src="n8n/n8n.jpg" alt="n8n AI Agent Workflow" />
+        <div class="project-overlay">
+          <span style="color:#fff;font-size:.8rem;background:rgba(124,58,237,0.7);padding:.3rem .8rem;border-radius:100px;">🔍 Ver imagen</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Automatización · n8n · AI Agent</div>
+        <div class="project-name">AI Agent con Herramientas Inteligentes</div>
+        <p class="project-desc">
+          Agente de IA en n8n que recibe mensajes de chat y orquesta herramientas: Google Gemini como modelo,
+          memoria simple, calculadora, Wikipedia y sub-workflows de n8n para razonamiento autónomo.
+        </p>
+        <div class="skill-tags">
+          <span class="tag cyan">n8n</span>
+          <span class="tag cyan">AI Agent</span>
+          <span class="tag">Google Gemini</span>
+          <span class="tag cyan">Automatización</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="reveal">
+    <span class="section-tag">Formación</span>
+    <h2 class="section-title">Educación</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-year">Jul 2025 – Jun 2026 · En curso</div>
+      <div class="edu-degree">Especialista en Analítica de Datos, IA y Ciencia de Datos</div>
+      <div class="edu-school">Corporación Unificada Nacional de Educación Superior (CUN)</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-year">2017 – Oct 2024</div>
+      <div class="edu-degree">Ingeniería Eléctrica y Electrónica</div>
+      <div class="edu-school">Universidad Surcolombiana</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal">
+    <span class="section-tag">Credenciales</span>
+    <h2 class="section-title">Certificaciones</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon">📈</div>
+      <span class="cert-name">Business Intelligence Foundation Professional Certification (BIFPC)</span>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon">🌎</div>
+      <span class="cert-name">English First – Nivel de Inglés B2</span>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon">🎓</div>
+      <span class="cert-name">Bootcamp Analítica de Datos Avanzado</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <span class="section-tag">Contacto</span>
+      <h2 class="section-title">¡Hablemos!</h2>
+      <div class="section-line"></div>
+      <p style="color:var(--muted);font-size:.95rem;line-height:1.8;">
+        Estoy abierta a nuevas oportunidades en proyectos de datos, IA y automatización.
+        Si tienes un proyecto interesante o una vacante que encaje con mi perfil, no dudes en contactarme.
+      </p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:sofiadussan1999@gmail.com" class="contact-card">
+        <span class="icon">✉️</span>
+        sofiadussan1999@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/sofiadussandiaz" target="_blank" class="contact-card">
+        <span class="icon">💼</span>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Sofía Dussán Díaz · Data Engineer &amp; AI Engineer · Bogotá, Colombia</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Project preview" onclick="event.stopPropagation()" />
+</div>
+
+<script>
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 50
+      ? 'rgba(7,7,15,0.95)'
+      : 'rgba(7,7,15,0.7)';
+  });
+</script>
+</body>
+</html>
